@@ -2,18 +2,26 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
 
+let mongo: any;
 beforeAll(async () => {
-  mongo = await MongoMemoryServer.create();
+  process.env.JWT_KEY = 'asdfasdf';
+
+  const mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {});
 });
 
 beforeEach(async () => {
-  const collections = await mongoose.connection.db.collections();
+  if (mongoose.connection.readyState === 1) {
+    // 1 = connected
+    const collections = await mongoose.connection.db?.collections();
 
-  for (let collection of collections) {
-    await collection.deleteMany({});
+    if (collections && collections.length > 0) {
+      for (let collection of collections) {
+        await collection.deleteMany({});
+      }
+    }
   }
 });
 
