@@ -1,15 +1,15 @@
 {
   "name": "@jp_tickets/common",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
     "build/**/*"
   ],
   "scripts": {
-    "clean": "del ./build/*",
+    "clean": "rimraf build",
     "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
+    "pub": "npm version patch && npm run build && npm publish"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
   "description": "",
   "devDependencies": {
     "del-cli": "^5.1.0",
+    "rimraf": "^6.0.1",
     "typescript": "^5.5.4"
   },
   "dependencies": {
