@@ -14,7 +14,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
+          - src: "src/**/*.ts"
             dest: .
     - image: jumpei527/client
       context: client
@@ -22,5 +22,13 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.ts'
+          - src: "**/*.ts"
+            dest: .
+    - image: jumpei527/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
             dest: .
