@@ -23,6 +23,7 @@ beforeAll(async () => {
 beforeEach(async () => {
   if (mongoose.connection.readyState === 1) {
     // 1 = connected
+    jest.clearAllMocks();
     const collections = await mongoose.connection.db?.collections();
 
     if (collections && collections.length > 0) {
