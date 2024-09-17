@@ -14,7 +14,7 @@ router.delete(
   async (req: Request, res: Response) => {
     const { orderId } = req.params;
 
-    const order = await Irder.findById(orderId);
+    const order = await Order.findById(orderId);
 
     if (!order) {
       throw new NotFoundError();
@@ -24,6 +24,8 @@ router.delete(
     }
     order.status = OrderStatus.Cancelled;
     await order.save();
+
+    // publishing an event saying this was cancelled
 
     res.status(204).send(order);
   }
