@@ -1,4 +1,4 @@
-import { Message } from 'nats-node-streaming';
+import { Message } from 'node-nats-streaming';
 import { Subjects, Listener, TicketUpdatedEvent } from '@jp_tickets/common';
 import { Ticket } from '../../models/ticket';
 import { queueGroupName } from './queue-group-name';
@@ -7,7 +7,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   subject: Subjects.TicketUpdated = Subjects.TicketUpdated;
   queueGroupName = queueGroupName;
 
-  async onMesssage(data: TicketUpdatedEvent['data'], msg: Message) {
+  async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
     const ticket = await Ticket.findById(data.id);
 
     if (!ticket) {
