@@ -3,7 +3,7 @@ import { Listener, OrderCreatedEvent, Subjects } from '@jp_tickets/common';
 import { queueGroupName } from './queue-group-name';
 import { Ticket } from '../../models/ticket';
 
-export class OrderCreatedListener extends Listener<OrderCreatedListener> {
+export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
   queueGroupName = queueGroupName;
 
