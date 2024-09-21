@@ -2,7 +2,7 @@ import { Message } from 'node-nats-streaming';
 import { Listener, OrderCreatedEvent, Subjects } from '@jp_tickets/common';
 import { queueGroupName } from './queue-group-name';
 import { Ticket } from '../../models/ticket';
-import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publishers';
+import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
