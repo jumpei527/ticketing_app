@@ -4,7 +4,9 @@ import {
   requireAuth,
   validateRequest,
   BadRequestError,
+  NotAuthorizedError,
   NotFoundError,
+  OrderStatus,
 } from '@jp_tickets/common';
 import { Order } from '../models/order';
 
@@ -13,9 +15,21 @@ const router = express.Router();
 router.post(
   '/api/payments',
   requireAuth,
-  [body('token').not().isEmpty(), body('orderid').not().isEmpty()],
+  [body('token').not().isEmpty(), body('orderId').not().isEmpty()],
   validateRequest,
   async (req: Request, res: Response) => {
+    const { token, orderId } = req.body;
+
+    if (!order) {
+      throw new NotFoundError();
+    }
+    if (order.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
+    if (order.status === OrderStatus.Cancelled) {
+      throw new BadRequestError('Cannot pay for an cancelled order');
+    }
+
     res.send({ success: true });
   }
 );
